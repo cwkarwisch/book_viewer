@@ -22,11 +22,26 @@ get "/chapters/:number" do
   erb :chapter
 end
 
+get "/search" do
+  return erb :search if params['query'] == nil
+  @query = params['query']
+  @chapters = Dir.entries("data").select do |chapter|
+    next if File.directory?(chapter)
+    text = File.read("data/#{chapter}")
+    text.include?(@query)
+  end
+  erb :search
+end
+
 helpers do
   def in_paragraphs(text)
     @text.split("\n\n").map do |paragraph|
       "<p>#{paragraph}</p>"
     end.join
+  end
+
+  def extract_chapter_number(chapter_file_name)
+    chapter_file_name.match(/[0-9]+/)[0]
   end
 end
 

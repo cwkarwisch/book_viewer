@@ -1,0 +1,29 @@
+<h2 class="content-subhead">Search</h2>
+
+<form action="/search" method="GET">
+  <input name="query" value="<%= params[:query] %>">
+  <button type="submit">Search</button>
+</form>
+
+<br>
+
+<% if @chapters %>
+  <% if @chapters.empty? %>
+
+  Sorry, no matches were found.
+
+  <% else %>
+
+    <div>
+      <ul>
+        <% @chapters.each do |chapter| %>
+          <% chapter_number = extract_chapter_number(chapter) %>
+          <li>
+            <a href="/chapters/<%= chapter_number %>"><%= @table_of_contents[chapter_number.to_i - 1] %></a>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+  <% end %>
+<% end %>
