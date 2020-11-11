@@ -21,8 +21,12 @@
           </li>
             <br>
             <ul>
-              <% chapter[:paragraphs].each do |paragraph| %>
-                <li><a href="/chapters/<%= chapter[:number] %>#<%= paragraph[:index] %>"><%= bold_phrase(paragraph[:text], params['query']) %></a></li>
+              <% chapter[:paragraphs].each do |index, paragraph| %>
+                <li>
+                  <a href="/chapters/<%= chapter[:number] %>#paragraph<%= index %>">
+                    <%= bold_phrase(paragraph, params['query']) %>
+                  </a>
+                </li>
               <% end %>
             </ul>
             <br>
